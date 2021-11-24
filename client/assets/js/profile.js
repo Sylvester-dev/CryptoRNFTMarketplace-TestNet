@@ -1,11 +1,11 @@
-Moralis.initialize("WSWMOttR6gi8ZmTUWbPJhxFeTfd00wA1ymzG6NNm"); // Application id from moralis.io
-Moralis.serverURL = 'https://uquwvup1lcya.usemoralis.com:2053/server'; //Server url from moralis.io
+Moralis.initialize("VyhqLkUf8i3KLUqQ0sJ5X2hmYxibW3A9hVuBeazh"); // Application id from moralis.io
+Moralis.serverURL = 'https://hek0avlbrgiq.usemoralis.com:2053/server'; //Server url from moralis.io
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
-const CryptoRTokenAddress = "0xFB1A0b18aA918fdbf2817DB8DCb320586C3E7df9";
-const CryptoRMarketplaceAddress = "0xa7180C7C766B9ec0fC7001ddD07ACc0fDD2c2a39";
-const paymentGatewayAddress = "0xca036B0FA2cF9aed072fe4FCC7E121f1287135D1";
+const CryptoRTokenAddress = "0xf908652f612298Db15d6D7AC7E71B10420614074";
+const CryptoRMarketplaceAddress = "0x7b23e495cca1303cFCdB053d96Be02174FD7e177";
+const paymentGatewayAddress = "0xEBD323eff966858097a989A4ab29B81588848A8f";
 let CryptoRTokenInstance;
 let CryptoRMarketplaceInstance;
 let paymentGatewayInstance;
