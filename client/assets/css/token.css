@@ -61,7 +61,7 @@
   border-radius: 25px;
   padding: 5px 10px;
   font-weight: 700;
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 37, 0, 0.918) 0%, rgba(251, 63, 79, 0.856) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -96,7 +96,7 @@ a.anchor{
 }
 
 .on-sale-text{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 0, 83, 0.87) 0%, rgba(251, 63, 63, 0.979) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -235,7 +235,7 @@ a.anchor{
 }
 
 .sale-profit{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 37, 0, 0.89) 0%, rgba(251, 63, 72, 0.89) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -250,7 +250,7 @@ a.anchor{
 }
 
 #contentUnlockedTitle{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 37, 0, 0.89) 0%, rgba(251, 63, 72, 0.89) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

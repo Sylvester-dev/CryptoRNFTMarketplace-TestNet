@@ -208,7 +208,7 @@ audio{
 }
 
 #saleProfit{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 37, 0, 0.89) 0%, rgba(251, 63, 72, 0.89) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -228,7 +228,7 @@ audio{
 
 #royaltyAmount{
   margin-left: 5px;
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 37, 0, 0.89) 0%, rgba(251, 63, 72, 0.89) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.3rem;

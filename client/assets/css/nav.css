@@ -14,14 +14,14 @@
 }
 
 #mint{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgb(248, 78, 36) 0%, rgba(255, 26, 26, 0.884) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 600;
 }
 
 #create{
-  background: -webkit-linear-gradient(260deg, rgba(0,222,249,1) 0%, rgba(63,94,251,1) 80%);
+  background: -webkit-linear-gradient(260deg, rgba(249, 0, 33, 0.959) 0%, rgba(251, 69, 63, 0.952) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-right: 10px;
