@@ -1,6 +1,10 @@
 {
   "dependencies": {
-    "@truffle/hdwallet-provider": "^1.7.0"
-    
+    "@truffle/hdwallet-provider": "^1.7.0",
+    "build": "^0.1.4",
+    "webpack": "^5.64.3"
+  },
+  "scripts": {
+    "build": "echo 'build script executed'"
   }
 }
