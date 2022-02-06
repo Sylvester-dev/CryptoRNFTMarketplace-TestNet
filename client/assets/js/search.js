@@ -1,10 +1,10 @@
-Moralis.initialize("VyhqLkUf8i3KLUqQ0sJ5X2hmYxibW3A9hVuBeazh"); // Application id from moralis.io
-Moralis.serverURL = 'https://hek0avlbrgiq.usemoralis.com:2053/server'; //Server url from moralis.io
+Moralis.initialize("tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA"); // Application id from moralis.io
+Moralis.serverURL = 'https://4q2r9curxf6a.usemoralis.com:2053/server'; //Server url from moralis.io
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
-const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
-const CryptoRTokenAddress = "0xf908652f612298Db15d6D7AC7E71B10420614074";
-const CryptoRMarketplaceAddress = "0x7b23e495cca1303cFCdB053d96Be02174FD7e177";
+const ETH_USD_PRICE_URL = "/simple/price?ids=avalanche-2&vs_currencies=usd";
+const CryptoRTokenAddress = "0x42969B05F72F2D0119046c7cEb8ED54A6e17df74";
+const CryptoRMarketplaceAddress = "0xfB4A93e3A0cb95133C6999AfB7Ceb14f1da8D1c2";
 let CryptoRTokenInstance;
 let CryptoRMarketplaceInstance;
 let web3;
@@ -16,7 +16,7 @@ let query = url.searchParams.get('query');
 let cleanedQuery = query.toLowerCase();
 
 $(document).ready(async function(){
-  web3 = await Moralis.Web3.enable();
+  web3 = await Moralis.enableWeb3();
   CryptoRTokenInstance = new web3.eth.Contract(abi.CryptoRToken, CryptoRTokenAddress);
   CryptoRMarketplaceInstance = new web3.eth.Contract(abi.CryptoRMarketplace, CryptoRMarketplaceAddress);
   ethPrice = await getEthPrice();

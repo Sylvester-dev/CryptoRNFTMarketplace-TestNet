@@ -2,15 +2,17 @@
 
 pragma solidity ^0.8.0;
 
-import "./node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-contract CryptoR is ERC721 {
-  using Counters for Counters.Counter;
-  Counters.Counter private _tokenIds;
+contract CryptoR is ERC721Upgradeable {
+  using CountersUpgradeable for CountersUpgradeable.Counter;
+  CountersUpgradeable.Counter private _tokenIds;
 
-  constructor () ERC721("CryptoR", "CNR"){}
-
+  
+function initialize() initializer public {
+       __ERC721_init("CryptoR", "CNR");
+     }
   struct Artwork{
     uint256 id;
     address payable creator;

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./node_modules/@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./CryptoR.sol";
 import "./PaymentGateway.sol";
 
@@ -44,12 +44,12 @@ contract CryptoRMarketplace is Ownable {
   function _setCryptoRContract(address _CryptoRContractAddress) private onlyOwner{
     _CryptoR = CryptoR(_CryptoRContractAddress);
   }
-
   function setOffer(uint256 price, uint256 tokenId, address tokenAddress) public{
     require(_CryptoR.ownerOf(tokenId) == msg.sender, "Only the owner of the artwork is allowed to do this");
     require(_CryptoR.isApprovedForAll(msg.sender, address(this)) == true, "Not approved to sell");
     require(price >= 1000, "Price must be greater than or equal to 1000 wei");
     require(tokenIdToOffer[tokenId].active == false, "Item is already on sale");
+  
 
     uint256 offerId = offers.length;
 
@@ -57,9 +57,12 @@ contract CryptoRMarketplace is Ownable {
 
     tokenIdToOffer[tokenId] = offer;
 
+
     offers.push(offer);
 
     emit artworkAdded(address(_CryptoR), msg.sender, price, tokenId, offerId, false);
+
+
   }
 
   function changePrice(uint256 newPrice, uint256 tokenId, address tokenAddress) public{
@@ -93,6 +96,8 @@ contract CryptoRMarketplace is Ownable {
     offers[offer.offerId].active = false;
 
     _CryptoR.safeTransferFrom(offer.seller, msg.sender, tokenId);
+    
+
 
     _distributeFees(tokenId, offers[offer.offerId].price, offer.seller);
 
@@ -116,6 +121,8 @@ contract CryptoRMarketplace is Ownable {
     uint256 payment = price - creatorFee - publisherFee;
 
     address payable creator = _CryptoR.getCreator(tokenId);
+
+
 
     _PaymentGateway.sendPayment{value: creatorFee}(creator);
     _PaymentGateway.sendPayment{value: payment}(seller);

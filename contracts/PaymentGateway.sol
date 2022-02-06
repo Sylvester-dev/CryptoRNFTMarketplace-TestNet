@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./node_modules/@openzeppelin/contracts/utils/escrow/Escrow.sol";
+import "@openzeppelin/contracts/utils/escrow/Escrow.sol";
 
 contract PaymentGateway{
   Escrow immutable private escrow;
