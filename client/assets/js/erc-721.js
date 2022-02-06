@@ -1,5 +1,6 @@
-Moralis.initialize("tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA"); // Application id from moralis.io
-Moralis.serverURL = 'https://4q2r9curxf6a.usemoralis.com:2053/server'; //Server url from moralis.io
+serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
+appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA";
+Moralis.start({ serverUrl, appId });
 
 const user = Moralis.User.current();
 const CryptoRTokenAddress = "0x42969B05F72F2D0119046c7cEb8ED54A6e17df74";
