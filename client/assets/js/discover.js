@@ -183,7 +183,7 @@ async function recentlySold(){
       }
 
       $('#soldCardNotForSale' + tokenAddress + id).html(`Sold For: <br><span class="for-sale-text">${priceInEth} ETH</span>`);
-      $('#soldCardButton' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
+      $('#soldCardButton' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
       darkmodeForDynamicContent();
     }
   } catch (err) {
@@ -370,7 +370,7 @@ function soldCardShareOptions(tokenAddress, id){
   let top = screen.height / 3;
   let width = screen.width / 3;
   let height = screen.height / 3;
-  let tokenPage = `http://localhost:8000/token.html?token=${tokenAddress+id}`;
+  let tokenPage = `./token.html?token=${tokenAddress+id}`;
   let tweet = `https://twitter.com/intent/tweet?text=Check%20out%20this%20NFT%20on%20CryptoR!&hashtags=CryptoR%2Cbsc%2Cnonfungible%2Cdigitalasset%2Cnft&via=CryptoR&url=${tokenPage}`;
   let post = `https://www.facebook.com/sharer/sharer.php?u=${tokenPage}%3F&quote=Check%20out%20this%20NFT%20on%20CryptoR`;
 
@@ -428,7 +428,7 @@ async function recentlyPutForSale(){
 
         let priceInEth = web3.utils.fromWei(price, 'ether');
         $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${priceInEth} ETH</span>`);
-        $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+        $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
       }
       darkmodeForDynamicContent();
     }
@@ -472,7 +472,7 @@ async function recentlyMintedAndNotOnSale(){
 
         $('#name' + tokenAddress + id).html(name);
         $('#notForSale' + tokenAddress + id).html(`<button id="encourageBell`+tokenAddress+id+`" class="btn like-encourage-button fas fa-concierge-bell"><span class="like-encourage-text" id="encourageCounter`+tokenAddress+id+`"></span></button>`);
-        $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
+        $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
         encourageButton(tokenAddress, id);
         showBellsFilled(tokenAddress, id);
         if(encouragements < 1 || encouragements == undefined){
@@ -789,7 +789,7 @@ function shareOptions(tokenAddress, id){
   let top = screen.height / 3;
   let width = screen.width / 3;
   let height = screen.height / 3;
-  let tokenPage = `http://localhost:8000/token.html?token=${tokenAddress+id}`;
+  let tokenPage = `./token.html?token=${tokenAddress+id}`;
   let tweet = `https://twitter.com/intent/tweet?text=Check%20out%20this%20NFT%20on%20CryptoR!&hashtags=CryptoR%2Cbsc%2Cnonfungible%2Cdigitalasset%2Cnft&via=CryptoR&url=${tokenPage}`;
   let post = `https://www.facebook.com/sharer/sharer.php?u=${tokenPage}%3F&quote=Check%20out%20this%20NFT%20on%20CryptoR`;
 
@@ -896,7 +896,7 @@ function putOnSale(tokenAddress, id, royalty, creator){
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
       $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
-      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
                                                     <a class="dropdown-item quick-action" id="removeFromSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#removeFromSaleModal`+tokenAddress+id+`">Remove from sale</a>
@@ -961,7 +961,7 @@ function removeFromSale(tokenAddress, id, royalty, creator){
 
       $('#notForSale' + tokenAddress + id).css('display', 'block');
       $('#notForSale' + tokenAddress + id).html(`<button id="encourageBell`+tokenAddress+id+`" class="btn like-encourage-button fas fa-concierge-bell"><span class="like-encourage-text" id="encourageCounter`+tokenAddress+id+`"></span></button>`);
-      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="putForSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#putForSaleModal`+tokenAddress+id+`">Put for sale</a>
                                                     <a class="dropdown-item quick-action" id="transferTokenQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#transferTokenModal`+tokenAddress+id+`">Transfer token</a>
@@ -1004,7 +1004,7 @@ function changePriceFrontEnd(tokenAddress, id, royalty, creator){
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
       $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
-      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
                                                     <a class="dropdown-item quick-action" id="removeFromSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#removeFromSaleModal`+tokenAddress+id+`">Remove from sale</a>
@@ -1064,7 +1064,7 @@ function transferToken(tokenAddress, id){
       $('#transferTokenBtn' + tokenAddress + id).removeClass('btn-primary');
       $('#transferTokenBtn' + tokenAddress + id).addClass('btn-success');
 
-      $('#owner' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
+      $('#owner' + tokenAddress + id).attr('href', "./profile.html?address=" + toAddress);
       $('#cardSpinner' + tokenAddress + id).css('display', 'block');
 
       newOwnerPhotoQuery(tokenAddress, id, toAddress);
@@ -1139,7 +1139,7 @@ function soldCardDiv(tokenAddress, id, owner){
                       <div id="soldCard`+tokenAddress+id+`" class="card sold-item shadow-sm">
                         <div class="top-row">
                           <div class="creator-photo">
-                            <a href="http://localhost:8000/profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="soldCardOwnerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
+                            <a href="./profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="soldCardOwnerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
                               <span id="soldcardSpinner`+tokenAddress+id+`" class="spinner-grow text-light" style="width: 40px; height: 40px; margin: 0; padding: 0;" role="status">
                                 <span class="sr-only">Loading...</span>
                               </span>
@@ -1158,7 +1158,7 @@ function soldCardDiv(tokenAddress, id, owner){
                           </div>
                         </div>
                         <div class="embed-responsive embed-responsive-1by1">
-                          <a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
+                          <a href="./token.html?token=`+tokenAddress+id+`">
                             <span id='soldCardSpinnerGrow`+tokenAddress+id+`' class="spinner-grow text-light embed-responsive-item" role="status">
                               <span class="sr-only">Loading...</span>
                             </span>
@@ -1167,7 +1167,7 @@ function soldCardDiv(tokenAddress, id, owner){
                           </a>
                         </div>
                         <div class="card-body">
-                          <a class="anchor" href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
+                          <a class="anchor" href="./token.html?token=`+tokenAddress+id+`">
                             <p id="soldCardName`+tokenAddress+id+`" class="card-title"></p>
                           </a>
                           <p class="card-text sold-card-text" id="soldCardNotForSale`+tokenAddress+id+`"></p>
@@ -1190,7 +1190,7 @@ function cardDiv(tokenAddress, id, owner){
                     <div id="card`+tokenAddress+id+`" class="card minted-item shadow-sm">
                       <div class="top-row">
                         <div class="creator-photo">
-                          <a id='owner`+tokenAddress+id+`' href="http://localhost:8000/profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
+                          <a id='owner`+tokenAddress+id+`' href="./profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
                             <span id="cardSpinner`+tokenAddress+id+`" class="spinner-grow text-light" style="width: 40px; height: 40px; margin: 0; padding: 0;" role="status">
                               <span class="sr-only">Loading...</span>
                             </span>
@@ -1210,7 +1210,7 @@ function cardDiv(tokenAddress, id, owner){
                         </div>
                       </div>
                       <div class="embed-responsive embed-responsive-1by1">
-                        <a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
+                        <a href="./token.html?token=`+tokenAddress+id+`">
                           <span id='spinnerGrow`+tokenAddress+id+`' class="spinner-grow text-light embed-responsive-item" role="status">
                             <span class="sr-only">Loading...</span>
                           </span>
@@ -1219,7 +1219,7 @@ function cardDiv(tokenAddress, id, owner){
                         </a>
                       </div>
                       <div class="card-body">
-                        <a class="anchor" href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
+                        <a class="anchor" href="./token.html?token=`+tokenAddress+id+`">
                           <p id="name`+tokenAddress+id+`" class="card-title"></p>
                         </a>
                         <p class="card-text" id="forSale`+tokenAddress+id+`"></p>

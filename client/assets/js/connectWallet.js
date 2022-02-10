@@ -128,7 +128,7 @@ function displaySellerRankInNav(){
 };
 
 $('#myProfile').click(()=>{
-  const base = 'http://localhost:8000/profile.html?address=';
+  const base = './profile.html?address=';
   let destination = user.attributes.ethAddress.toLowerCase();
   let profile = base + destination;
   $('#myProfile').attr('href', profile);
