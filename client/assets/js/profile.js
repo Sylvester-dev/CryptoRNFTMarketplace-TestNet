@@ -1259,7 +1259,7 @@ function addSellerBadge(tokenAddress, id, amountSold){
 
 async function getProfileDetails(){
   try{
-    let userDetails = await Moralis.Cloud.run('getAllUsers');
+    let userDetails = await Moralis.Cloud.run('getUser');
     for (i = 0; i < userDetails.length; i++) {
       if(userDetails[i].ethAddress.toLowerCase() == address.toLowerCase()){
         let profilePhoto = userDetails[i].profilePhoto;
