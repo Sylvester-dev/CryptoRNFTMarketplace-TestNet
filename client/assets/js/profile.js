@@ -576,7 +576,7 @@ async function getFollowers(){
       let userInfo = await Moralis.Cloud.run('getUser', params);
       let username = userInfo.username;
       let ethAddress = userInfo.ethAddress;
-      let userProfilePhoto;
+      let userProfilePhoto = users[i].profilePhoto;
       if(userInfo.profilePhoto){
         userProfilePhoto = userInfo.profilePhoto._url;
       } else {
