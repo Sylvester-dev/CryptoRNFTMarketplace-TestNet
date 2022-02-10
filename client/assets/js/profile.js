@@ -676,9 +676,9 @@ async function dynamicFollowButton(ethAddress){
   }
 };
 
-function dismissLoadingPulseUserCard(ethAddress, userProfilePhoto){
+function dismissLoadingPulseUserCard(ethAddress, profilePhoto){
   let img = new Image;
-  img.src = userProfilePhoto;
+  img.src = profilePhoto;
   img.onload = function(){
     $('#userPhoto' + ethAddress).css('display', 'inline');
     $('#userRank' + ethAddress).css('display', 'block');
