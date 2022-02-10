@@ -1,11 +1,11 @@
 serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
-appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA";
+appId = 'tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA';
 Moralis.start({ serverUrl, appId });
 
 const user = Moralis.User.current();
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
-const ETH_USD_PRICE_URL = "/simple/price?ids=avalanche-2&vs_currencies=usd";
+const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
 const CryptoRTokenAddress = "0x42969B05F72F2D0119046c7cEb8ED54A6e17df74";
 const CryptoRMarketplaceAddress = "0xfb4a93e3a0cb95133c6999afb7ceb14f1da8d1c2";
 let CryptoRTokenInstance;
@@ -125,7 +125,7 @@ $('#forSale').click(async ()=>{
   let ifOfferDetailsDuplicatesRemoved = removeDuplicates(ifOfferDetails, it => it.tokenId);
   let activeCount = ifOfferDetailsDuplicatesRemoved.filter(item => !item.isSold && item.active && followingArray.includes(item.creator)).length;
   if(activeCount < 1){
-    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork for sale on Crypto<span class="gradient-text">R</span> at the moment.<div>`);
+    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork for sale on Open<span class="gradient-text">Mint</span> at the moment.<div>`);
   }
   recentlyPutForSale();
 });
@@ -136,7 +136,7 @@ $('#notForSale').click(async ()=>{
   let inactiveArtwork = await Moralis.Cloud.run('getArtwork');
   let inactiveCount = inactiveArtwork.filter(item => !item.active && followingArray.includes(item.creator)).length;
   if(inactiveCount < 1){
-    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork not for sale on Crypto<span class="gradient-text">R</span> at the moment.<div>`);
+    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork not for sale on Open<span class="gradient-text">Mint</span> at the moment.<div>`);
   }
   recentlyMintedAndNotOnSale();
 });
@@ -157,7 +157,7 @@ async function viewAll(){
   console.log('Active: ' + activeCount);
 
   if(activeCount < 1 && inactiveCount < 1){
-    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork created on Crypto<span class="gradient-text">R</span> at the moment.<div>`);
+    $('.following-wrapper').html(`<div class="no-art-for-sale shadow-sm">The artists you follow do not have artwork created on Open<span class="gradient-text">Mint</span> at the moment.<div>`);
   }
   recentlyPutForSale();
   recentlyMintedAndNotOnSale();
@@ -204,7 +204,7 @@ async function recentlyPutForSale(){
 
         let priceInEth = web3.utils.fromWei(price, 'ether');
         $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${priceInEth} ETH</span>`);
-        $('#button' + tokenAddress + id).html(`<a href="../token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+        $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
       }
       darkmodeForDynamicContent();
     }
@@ -248,7 +248,7 @@ async function recentlyMintedAndNotOnSale(){
 
         $('#name' + tokenAddress + id).html(name);
         $('#notForSale' + tokenAddress + id).html(`<button id="encourageBell`+tokenAddress+id+`" class="btn like-encourage-button fas fa-concierge-bell"><span class="like-encourage-text" id="encourageCounter`+tokenAddress+id+`"></span></button>`);
-        $('#button' + tokenAddress + id).html(`<a href="../token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
+        $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
         encourageButton(tokenAddress, id);
         showBellsFilled(tokenAddress, id);
         if(encouragements < 1 || encouragements == undefined){
@@ -566,7 +566,7 @@ function shareOptions(tokenAddress, id){
   let top = screen.height / 3;
   let width = screen.width / 3;
   let height = screen.height / 3;
-  let tokenPage = `../token.html?token=${tokenAddress+id}`;
+  let tokenPage = `http://localhost:8000/token.html?token=${tokenAddress+id}`;
   let tweet = `https://twitter.com/intent/tweet?text=Check%20out%20this%20NFT%20on%20CryptoR!&hashtags=CryptoR%2Cbsc%2Cnonfungible%2Cdigitalasset%2Cnft&via=CryptoR&url=${tokenPage}`;
   let post = `https://www.facebook.com/sharer/sharer.php?u=${tokenPage}%3F&quote=Check%20out%20this%20NFT%20on%20CryptoR`;
 
@@ -673,7 +673,7 @@ function putOnSale(tokenAddress, id, royalty, creator){
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
       $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
-      $('#button' + tokenAddress + id).html(`<a href="../token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
                                                     <a class="dropdown-item quick-action" id="removeFromSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#removeFromSaleModal`+tokenAddress+id+`">Remove from sale</a>
@@ -738,7 +738,7 @@ function removeFromSale(tokenAddress, id, royalty, creator){
 
       $('#notForSale' + tokenAddress + id).css('display', 'block');
       $('#notForSale' + tokenAddress + id).html(`<button id="encourageBell`+tokenAddress+id+`" class="btn like-encourage-button fas fa-concierge-bell"><span class="like-encourage-text" id="encourageCounter`+tokenAddress+id+`"></span></button>`);
-      $('#button' + tokenAddress + id).html(`<a href="../token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-light view-btn">View</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="putForSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#putForSaleModal`+tokenAddress+id+`">Put for sale</a>
                                                     <a class="dropdown-item quick-action" id="transferTokenQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#transferTokenModal`+tokenAddress+id+`">Transfer token</a>
@@ -781,7 +781,7 @@ function changePriceFrontEnd(tokenAddress, id, royalty, creator){
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
       $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
-      $('#button' + tokenAddress + id).html(`<a href="../token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+      $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
                                                     <a class="dropdown-item quick-action" id="removeFromSaleQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#removeFromSaleModal`+tokenAddress+id+`">Remove from sale</a>
@@ -841,7 +841,7 @@ function transferToken(tokenAddress, id){
       $('#transferTokenBtn' + tokenAddress + id).removeClass('btn-primary');
       $('#transferTokenBtn' + tokenAddress + id).addClass('btn-success');
 
-      $('#owner' + tokenAddress + id).attr('href', "../profile.html?address=" + toAddress);
+      $('#owner' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
       $('#cardSpinner' + tokenAddress + id).css('display', 'block');
 
       newOwnerPhotoQuery(tokenAddress, id, toAddress);
@@ -915,7 +915,7 @@ function cardDiv(tokenAddress, id, owner){
                     <div id="card`+tokenAddress+id+`" class="card minted-item shadow-sm">
                       <div class="top-row">
                         <div class="creator-photo">
-                          <a id='owner`+tokenAddress+id+`' href="../profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
+                          <a id='owner`+tokenAddress+id+`' href="http://localhost:8000/profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="owner photo">
                             <span id="cardSpinner`+tokenAddress+id+`" class="spinner-grow text-light" style="width: 40px; height: 40px; margin: 0; padding: 0;" role="status">
                               <span class="sr-only">Loading...</span>
                             </span>
@@ -935,7 +935,7 @@ function cardDiv(tokenAddress, id, owner){
                         </div>
                       </div>
                       <div class="embed-responsive embed-responsive-1by1">
-                        <a href="../token.html?token=`+tokenAddress+id+`">
+                        <a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
                           <span id='spinnerGrow`+tokenAddress+id+`' class="spinner-grow text-light embed-responsive-item" role="status">
                             <span class="sr-only">Loading...</span>
                           </span>
@@ -944,7 +944,7 @@ function cardDiv(tokenAddress, id, owner){
                         </a>
                       </div>
                       <div class="card-body">
-                        <a class="anchor" href="../token.html?token=`+tokenAddress+id+`">
+                        <a class="anchor" href="http://localhost:8000/token.html?token=`+tokenAddress+id+`">
                           <p id="name`+tokenAddress+id+`" class="card-title"></p>
                         </a>
                         <p class="card-text" id="forSale`+tokenAddress+id+`"></p>

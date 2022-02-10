@@ -1,5 +1,5 @@
 serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
-appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA";
+appId = 'tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA';
 Moralis.start({ serverUrl, appId });
 
 const user = Moralis.User.current();
@@ -13,7 +13,7 @@ let cover;
 let royalty = 10;
 let ethPrice;
 const BASE_URL = "https://api.coingecko.com/api/v3";
-const ETH_USD_PRICE_URL = "/simple/price?ids=avalanche-2&vs_currencies=usd";
+const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
 console.log(user);
 
 $(document).ready(async function(){
@@ -431,7 +431,7 @@ async function uploadToDB(tokenId, nftMetadataPath, nftPath){
       confetti({
         zIndex: 9999
       });
-      $('#successfulText').html('<a href="../profile.html?address='+user.attributes.ethAddress+'">Click here to view.</a> <a href="erc-721.html">Or click here to make another one.</a>');
+      $('#successfulText').html('<a href="http://localhost:8000/profile.html?address='+user.attributes.ethAddress+'">Click here to view.</a> <a href="erc-721.html">Or click here to make another one.</a>');
     }
 
   } catch (err) {
@@ -459,7 +459,7 @@ function setArtForSale(tokenId){
       confetti({
         zIndex: 9999
       });
-      $('#successfulText').html('<a href="../profile.html?address='+user.attributes.ethAddress+'">Click here to view.</a> <a href="erc-721.html">Or click here to make another one.</a>');
+      $('#successfulText').html('<a href="http://localhost:8000/profile.html?address='+user.attributes.ethAddress+'">Click here to view.</a> <a href="erc-721.html">Or click here to make another one.</a>');
     } catch(err){
       alert(err.message);
       $('#setOffer').prop('disabled', false);

@@ -1,9 +1,9 @@
 serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
-appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA";
+appId = 'tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA';
 Moralis.start({ serverUrl, appId });
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
-const ETH_USD_PRICE_URL = "/simple/price?ids=avalanche-2&vs_currencies=usd";
+const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
 const CryptoRTokenAddress = "0x42969B05F72F2D0119046c7cEb8ED54A6e17df74";
 const CryptoRMarketplaceAddress = "0xfB4A93e3A0cb95133C6999AfB7Ceb14f1da8D1c2";
 let CryptoRTokenInstance;
@@ -22,6 +22,7 @@ $(document).ready(async function(){
   ethPrice = await getEthPrice();
   getActiveArtworkInfo();
   getInactiveArtworkInfo();
+  getTimeCreated();
 });
 
 async function getEthPrice(){
@@ -86,7 +87,6 @@ async function getOnSaleDetails(){
 async function getCurrentOwner(){
   try {
     let owner = await Moralis.Cloud.run('getCurrentOwner');
-    console.log(owner);
     for (i = 0; i < owner.length; i++) {
       let tokenAddress = owner[i].tokenAddress;
       let tokenId = owner[i].tokenId;
@@ -101,10 +101,22 @@ async function getCurrentOwner(){
   }
 };
 
+async function getTimeCreated(){
+  let tokenAddress = token.slice(0, 42);
+  let tokenId = token.slice(42, token.length);
+  const Artwork = Moralis.Object.extend("Artwork");
+  const query = new Moralis.Query(Artwork);
+  query.equalTo("tokenAddress", tokenAddress);
+  query.equalTo("nftId", tokenId);
+  const artwork = await query.first();
+  return artwork.attributes.createdAt.toDateString() + " " + artwork.attributes.createdAt.toLocaleTimeString();
+};
+
 async function getActiveArtworkInfo(){
   try {
     let price = await getOnSaleDetails();
     let owner = await getCurrentOwner();
+    let createdAt = await getTimeCreated();
 
     let activeArtwork = await Moralis.Cloud.run('getArtwork');
     console.log(activeArtwork)
@@ -161,8 +173,9 @@ async function getActiveArtworkInfo(){
           } else{
             $('#description' + tokenAddress + id).html(description);
           }
+          $('#createdAt' + tokenAddress + id).html(createdAt);
           $('#royalty' + tokenAddress + id).html(royalty);
-          getAdditionalInfo(tokenAddress, id, additionalInfo, owner);
+
 
           if(unlockableContent && user.attributes.ethAddress.toLowerCase() == owner.toLowerCase()){
             $('.unlockable-div').css('display', 'block');
@@ -174,11 +187,30 @@ async function getActiveArtworkInfo(){
             $('#unlockableContentBtn' + tokenAddress + id).html('Unlockable');
           }
 
+          getAdditionalInfo(tokenAddress, id, additionalInfo, owner);
+
           if(user.attributes.ethAddress.toLowerCase() == owner.toLowerCase()){
             $('.if-owned').css('display', 'block');
             $(".not-onsale").css('display', 'none');
             $(".if-onsale").css('display', 'none');
-            $('#additionalInfo' + tokenAddress + id).html('View/Edit Additional Info');
+
+            if(owner.toLowerCase() == user.attributes.ethAddress.toLowerCase() && !additionalInfo){
+            $('#additionalInfo' + tokenAddress + id).css('display', 'inline');
+             $('#additionalInfo' + tokenAddress + id).html('Add Additional Info');
+             $('#additionalInfoText').css('display', 'block');
+             $('#additionalInfoText').html(additionalInfo);
+             $('#additionalInfo' + tokenAddress + id).click(()=>{
+               $('#additionalInfoModal').modal('show');
+             });
+           } else if(owner.toLowerCase() == user.attributes.ethAddress.toLowerCase() && additionalInfo){
+             $('#additionalInfo' + tokenAddress + id).html('View/Edit Additional Info');
+             $('#additionalInfoText').css('display', 'block');
+             $('#additionalInfoText').html(additionalInfo);
+             $('#additionalInfo' + tokenAddress + id).click(()=>{
+               $('#additionalInfoModal').modal('show');
+             });
+           }
+
           } else{
             $('.if-owned').css('display', 'none');
             $(".if-onsale").css('display', 'block');
@@ -197,6 +229,7 @@ async function getInactiveArtworkInfo(){
   try {
     let price = await getOnSaleDetails();
     let owner = await getCurrentOwner();
+    let createdAt = await getTimeCreated();
 
     let inactiveArtwork = await Moralis.Cloud.run('getArtwork');
 
@@ -254,13 +287,13 @@ async function getInactiveArtworkInfo(){
 
           $('#title' + tokenAddress + id).html(name);
           if(description == ''){
-            $('#description' + tokenAddress + id).css(({'color': "#888", 'font-size': ".8rem", 'font-weight': '500'}));
+            $('#description' + tokenAddress + id).css({'color': "#888", 'font-size': ".8rem", 'font-weight': '500'});
             $('#description' + tokenAddress + id).html('(No description given)');
           } else{
             $('#description' + tokenAddress + id).html(description);
           }
+          $('#createdAt' + tokenAddress + id).html(createdAt);
           $('#royalty' + tokenAddress + id).html(royalty);
-          getAdditionalInfo(tokenAddress, id, additionalInfo, owner);
 
           if(unlockableContent && user.attributes.ethAddress.toLowerCase() == owner.toLowerCase()){
             $('.unlockable-div').css('display', 'block');
@@ -272,11 +305,30 @@ async function getInactiveArtworkInfo(){
             $('#unlockableContentBtn' + tokenAddress + id).html('Unlockable');
           }
 
+          getAdditionalInfo(tokenAddress, id, additionalInfo, owner);
+
           if(user.attributes.ethAddress.toLowerCase() == owner.toLowerCase()){
             $('.if-owned').css('display', 'block');
             $(".not-onsale").css('display', 'none');
             $(".if-onsale").css('display', 'none');
-            $('#additionalInfo' + tokenAddress + id).html('View/Edit Additional Info');
+
+            if(owner.toLowerCase() == user.attributes.ethAddress.toLowerCase() && !additionalInfo){
+            $('#additionalInfo' + tokenAddress + id).css('display', 'inline');
+             $('#additionalInfo' + tokenAddress + id).html('Add Additional Info');
+             $('#additionalInfoText').css('display', 'block');
+             $('#additionalInfoText').html(additionalInfo);
+             $('#additionalInfo' + tokenAddress + id).click(()=>{
+               $('#additionalInfoModal').modal('show');
+             });
+           } else if(owner.toLowerCase() == user.attributes.ethAddress.toLowerCase() && additionalInfo){
+             $('#additionalInfo' + tokenAddress + id).html('View/Edit Additional Info');
+             $('#additionalInfoText').css('display', 'block');
+             $('#additionalInfoText').html(additionalInfo);
+             $('#additionalInfo' + tokenAddress + id).click(()=>{
+               $('#additionalInfoModal').modal('show');
+             });
+           }
+
           } else{
             $('.if-owned').css('display', 'none');
             $(".if-onsale").css('display', 'none');
@@ -616,14 +668,8 @@ function likeButton(tokenAddress, id, likes){
 };
 
 function getAdditionalInfo(tokenAddress, id, additionalInfo, owner){
-  if(additionalInfo !== ''){
-    $('#additionalInfoText').css('display', 'block');
-    $('#additionalInfoText').html(additionalInfo);
-    $('#additionalInfo' + tokenAddress + id).click(()=>{
-      $('#additionalInfoModal').modal('show');
-    });
-  } else if(owner.toLowerCase() == user.attributes.ethAddress.toLowerCase() && additionalInfo == ''){
-    $('#additionalInfo' + tokenAddress + id).html('Add Additional Info');
+  if(additionalInfo){
+    $('#additionalInfo' + tokenAddress + id).html('View Additional Info');
     $('#additionalInfoText').css('display', 'block');
     $('#additionalInfoText').html(additionalInfo);
     $('#additionalInfo' + tokenAddress + id).click(()=>{
@@ -804,8 +850,8 @@ function shareOptions(tokenAddress, id){
   let width = screen.width / 3;
   let height = screen.height / 3;
   let tokenPage = window.location.href;
-  let tweet = `https://twitter.com/intent/tweet?text=Check%20out%20this%20NFT%20on%CryptoR!&hashtags=CryptoR%2Cbsc%2Cnonfungible%2Cdigitalasset%2Cnft&via=CryptoR&url=${tokenPage}`;
-  let post = `https://www.facebook.com/sharer/sharer.php?u=${tokenPage}%3F&quote=Check%20out%20this%20NFT%20on%CryptoR`;
+  let tweet = `https://twitter.com/intent/tweet?text=Check%20out%20this%20NFT%20on%20CryptoR!&hashtags=CryptoR%2Cbsc%2Cnonfungible%2Cdigitalasset%2Cnft&via=CryptoR&url=${tokenPage}`;
+  let post = `https://www.facebook.com/sharer/sharer.php?u=${tokenPage}%3F&quote=Check%20out%20this%20NFT%20on%20CryptoR`;
 
   $('#twitterBtnInModal' + tokenAddress + id).click(()=>{
     window.open(tweet, 'popup', `width=${width},height=${height},top=${top},left=${left}`);
@@ -816,7 +862,7 @@ function shareOptions(tokenAddress, id){
   });
 
   $('#emailBtnInModal' + tokenAddress + id).click(()=>{
-    window.location.href = `mailto:user@example.com?subject=Check%20out%20this%20NFT%20on%CryptoR&body=Never%20seen%20anything%20quite%20like%20this,%20${tokenPage}`;
+    window.location.href = `mailto:user@example.com?subject=Check%20out%20this%20NFT%20on%20CryptoR&body=Never%20seen%20anything%20quite%20like%20this,%20${tokenPage}`;
   });
 };
 
@@ -1077,8 +1123,8 @@ function transferToken(tokenAddress, id){
       $('#transferTokenBtn' + tokenAddress + id).removeClass('btn-primary');
       $('#transferTokenBtn' + tokenAddress + id).addClass('btn-success');
 
-      $('#ownerNameAnchor' + tokenAddress + id).attr('href', "../profile.html?address=" + toAddress);
-      $('#owner' + tokenAddress + id).attr('href', "../profile.html?address=" + toAddress);
+      $('#ownerNameAnchor' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
+      $('#owner' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
       $('#ownerSpinner' + tokenAddress + id).css('display', 'block');
       newOwnerPhotoAndNameQuery(tokenAddress, id, toAddress);
 
@@ -1199,8 +1245,8 @@ async function buy(tokenAddress, id, price, royalty, creator){
           $('#unlockableContentBtn' + tokenAddress + id).html('Unlocked');
           $('#unlockableContentBtn' + tokenAddress + id).addClass('magnify');
           let toAddress = user.attributes.ethAddress;
-          $('#ownerNameAnchor' + tokenAddress + id).attr('href', "../profile.html?address=" + toAddress);
-          $('#owner' + tokenAddress + id).attr('href', "../profile.html?address=" + toAddress);
+          $('#ownerNameAnchor' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
+          $('#owner' + tokenAddress + id).attr('href', "http://localhost:8000/profile.html?address=" + toAddress);
           $('#ownerSpinner' + tokenAddress + id).css('display', 'block');
           newOwnerPhotoAndNameQuery(tokenAddress, id, toAddress);
           customConfetti();
@@ -1303,15 +1349,13 @@ function cardDiv(tokenAddress, id, owner, creator, path){
                     </span>
                   </a>
                 </div>
-
                 <!-- info -->
                 <div class="info-wrapper col-xs-12 col-sm-12 col-md-12 col-lg-4">
                   <div class="info-section">
-
                     <div class="top-row-token-page">
                       <div class="owner-div row">
                         <div class="owner-photo">
-                          <a class="anchor" id='owner`+tokenAddress+id+`' href="../profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="creator photo">
+                          <a class="anchor" id='owner`+tokenAddress+id+`' href="http://localhost:8000/profile.html?address=`+owner+`"><img loading="lazy" class="owner shadow-sm" id="ownerPhoto`+tokenAddress+id+`" src="" width="40" alt="creator photo">
                             <span id="ownerSpinner`+tokenAddress+id+`" class="spinner-grow text-light" style="width: 40px; height: 40px;" role="status">
                               <span class="sr-only">Loading...</span>
                             </span>
@@ -1321,7 +1365,7 @@ function cardDiv(tokenAddress, id, owner, creator, path){
                           </a>
                         </div>
                         <div class="name">
-                          <a class="anchor" id="ownerNameAnchor`+tokenAddress+id+`" href="../profile.html?address=`+owner+`">
+                          <a class="anchor" id="ownerNameAnchor`+tokenAddress+id+`" href="http://localhost:8000/profile.html?address=`+owner+`">
                             <div class="owner-name" id="ownerName`+tokenAddress+id+`"></div>
                           </a>
                           <div class="creator sub-text">Owner</div>
@@ -1336,40 +1380,33 @@ function cardDiv(tokenAddress, id, owner, creator, path){
                             ...
                           </button>
                           <div class="dropdown-menu" id="quickActions`+tokenAddress+id+`" aria-labelledby="dropdownMenuButton">
-
                           </div>
                         </div>
                       </div>
                     </div>
-
                     <div class="unlockable-div">
                       <span id="unlockableContentTag`+tokenAddress+id+`">
                         <button class="btn btn-light shadow-sm unlockable-button" type="button" id="unlockableContentBtn`+tokenAddress+id+`">Unlockable</button>
                       </span>
                     </div>
-
                     <div class="title">
                       <span id="title`+tokenAddress+id+`"></span>
                     </div>
-
                     <div class="sale-text">
                       <span class="on-sale-text" id="forSale`+tokenAddress+id+`"></span>
                       <span class="not-on-sale-text" id="notForSale`+tokenAddress+id+`"></span>
                     </div>
-
                     <div class="description bg-light">
                       <div id="description`+tokenAddress+id+`"></div>
                     </div>
-
                     <div class="additional-info">
-                      <a class="text-primary mb-3 additional-info-tag" id="additionalInfo`+tokenAddress+id+`">View Additional Info</a>
+                      <a class="text-primary mb-3 additional-info-tag" id="additionalInfo`+tokenAddress+id+`"></a>
                     </div>
-
                     <div class="dividing-line"></div>
 
                     <div class="creator-div row">
                       <div class="creator-photo">
-                        <a class="anchor" href="../profile.html?address=`+creator+`"><img loading="lazy" class="creator shadow-sm" id="creatorPhoto`+tokenAddress+id+`" src="" width="40" alt="creator photo">
+                        <a class="anchor" href="http://localhost:8000/profile.html?address=`+creator+`"><img loading="lazy" class="creator shadow-sm" id="creatorPhoto`+tokenAddress+id+`" src="" width="40" alt="creator photo">
                           <span id="creatorSpinner`+tokenAddress+id+`" class="spinner-grow text-light" style="width: 40px; height: 40px;" role="status">
                             <span class="sr-only">Loading...</span>
                           </span>
@@ -1379,17 +1416,20 @@ function cardDiv(tokenAddress, id, owner, creator, path){
                         </a>
                       </div>
                       <div class="name">
-                        <a class="anchor" href="../profile.html?address=`+creator+`">
+                        <a class="anchor" href="http://localhost:8000/profile.html?address=`+creator+`">
                           <div class="creator-name" id="creatorName`+tokenAddress+id+`"></div>
                         </a>
                         <div class="creator sub-text">Creator</div>
                       </div>
                     </div>
 
+                    <div class="token-history">
+                      <span class="sub-text">Minted: <span id="createdAt`+tokenAddress+id+`"></span></span>
+                    </div>
+
                     <div class="if-royalty">
                       <span class="badge badge-pill badge-info shadow-sm"><span id="royalty`+tokenAddress+id+`"></span>% of sale will go to creator</span>
                     </div>
-
                     <div class="button-div">
                       <div class="if-onsale">
                         <button type="button" class="btn btn-primary btn-lg btn-block button-styling shadow-sm" id="buy`+tokenAddress+id+`">Buy Now</button>
@@ -1402,9 +1442,7 @@ function cardDiv(tokenAddress, id, owner, creator, path){
                         <button type="button" class="btn btn-primary btn-lg btn-block button-styling disabled shadow-sm" id="owned`+tokenAddress+id+`">You own this artwork</button>
                       </div>
                     </div>
-
                   </div>
-
                 </div>`
   $('.cardDiv').prepend(nftCard);
   darkmodeForDynamicContent();
@@ -1421,13 +1459,11 @@ function changePriceModalHTML(tokenAddress, id){
                       </button>
                     </div>
                     <div class="modal-body">
-
                       <form>
                         <div id="changePriceInputGroup`+tokenAddress+id+`" class="price-input-group">
                           <div class="input-group">
                             <input id="changePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in ETH" aria-label="ether amount">
                           </div>
-
                           <div class="price-calculator price-info">
                             <span>Service Fee Upon Sale <span>2%</span></span><br>
                             <span id="ifOwnerNotCreator`+tokenAddress+id+`">Creator's Royalty <span id="royalty`+tokenAddress+id+`"></span><br></span>
@@ -1435,7 +1471,6 @@ function changePriceModalHTML(tokenAddress, id){
                           </div>
                         </div>
                       </form>
-
                     </div>
                     <div class="modal-footer change-price-footer">
                       <button type="button" class="btn btn-secondary button-styling" data-dismiss="modal">Close</button>
@@ -1460,13 +1495,11 @@ let putForSaleModal =`<div class="modal fade" id="putForSaleModal`+tokenAddress+
                             </div>
                             <div class="modal-body">
                               <button type="button" class="btn btn-primary btn-block button-styling" id="setApprovalBtn`+tokenAddress+id+`">Set Approval To Sell</button>
-
                               <form>
                                 <div id="priceInputGroup`+tokenAddress+id+`" class="price-input-group">
                                   <div class="input-group">
                                     <input id="salePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in ETH" aria-label="ether amount">
                                   </div>
-
                                   <div class="price-calculator price-info">
                                     <span>Service Fee Upon Sale <span>2%</span></span><br>
                                     <span id="ifOwnerNotCreator`+tokenAddress+id+`">Creator's Royalty <span id="royalty`+tokenAddress+id+`"></span><br></span>
@@ -1474,7 +1507,6 @@ let putForSaleModal =`<div class="modal fade" id="putForSaleModal`+tokenAddress+
                                   </div>
                                 </div>
                               </form>
-
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary button-styling" data-dismiss="modal">Close</button>
@@ -1526,7 +1558,6 @@ function transferTokenModalHTML(tokenAddress, id){
                                         <div class="input-group">
                                           <input id="toAddressInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="0x..." aria-label="receiver address">
                                         </div>
-
                                         <div class="price-info">
                                           <span>Enter the address where you want to send this artwork</span><br>
                                           <span id="regexMessage`+tokenAddress+id+`"></span>

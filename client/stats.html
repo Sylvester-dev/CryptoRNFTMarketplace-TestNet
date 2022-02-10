@@ -7,21 +7,16 @@
     <link rel="stylesheet" href="assets/css/fonts.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/nav.css">
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/card.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/stats.css">
     <link rel="stylesheet" href="assets/css/basics.css">
-    <link rel="stylesheet" href="assets/css/search.css">
-    <link rel="stylesheet" href="assets/css/userCard.css">
-    <link rel="icon" type="image/png" href="assets/images-icons/CryptoRLogo.png">
+    <link rel="icon" type="image/png" href="assets/images-icons/openMintLogo.png">
     <script type="text/javascript" src="assets/js/jquery-3.4.1.js"></script>
     <script src="assets/bootstrap/js/popper.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://unpkg.com/moralis@0.0.184/dist/moralis.js"></script>
     <script src="https://kit.fontawesome.com/99c803f139.js" crossorigin="anonymous"></script>
-    <script src="assets/js/clipboard.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <title>CryptoR - Create, buy, and sell digital artwork backed by blockchain technology</title>
   </head>
   <body>
@@ -67,8 +62,8 @@
               <img id="rankInNav" src="" width="12px" alt="seller badge">
             </a>
             <div class="dropdown-menu" aria-labelledby="profile">
-              <a class='dropdown-item' href="stats.html">My Stats</a>
-              <a id="myProfile" class='dropdown-item' href="profile.html">My Profile</a>
+              <a class='dropdown-item' href="stats.html">My Stats<span class="sr-only">(current)</span></a>
+              <a id="myProfile" class='dropdown-item'>My Profile</a>
               <a class='dropdown-item' href="edit-profile.html">Edit Profile</a>
               <hr>
               <a class="dropdown-item" id="disconnectWalletBtn">Disconnect Wallet</a>
@@ -84,50 +79,120 @@
           </li>
         </ul>
       </div>
-
     </nav>
 
-    <div class="container col-11">
-      <div class="modals"></div>
-
-      <section class="recently-minted container-fluid">
-      <header class="header" id='resultsFor'>Showing results for:</header>
-
-        <div class="sorting-row">
-          <ul class="nav nav-pills" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link sorting-button active" data-toggle="pill" id="NFTs">NFTs <span class="count-text" id='nftCount'></span></a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link sorting-button" data-toggle="pill" id="artists">Artists <span class="count-text" id='artistCount'></span></a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="results-wrapper resultsDivs row">
-          <div id='loader' class="spinner-border mt-5 text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+    <div id="ifWalletNotConnectedModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header center-content">
+            <h5 class="modal-title">Must Connect Wallet To View Stats</h5>
           </div>
-        </div>
-      </section>
-
-      <div id="ifWalletNotConnectedModal" class="modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header center-content">
-              <h5 class="modal-title">Connect Wallet To Like/Encourage Artwork</h5>
-            </div>
-            <div class="modal-body center-content">
-              <button type="button" class="btn btn-secondary button-styling mr-2" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary button-styling" id="connectWalletModalBtn">Connect Wallet</button>
-            </div>
+          <div class="modal-body center-content">
+            <button type="button" class="btn btn-secondary button-styling mr-2" id="goBackBtn">Go Back</button>
+            <button type="button" class="btn btn-primary button-styling" id="connectWalletModalBtn">Connect Wallet</button>
           </div>
         </div>
       </div>
+    </div>
 
-    </div><!-- end of page container -->
+    <div class="container">
 
-    <!-- page will load more items on scroll so footer might not be neccessary -->
+      <div class="stats">
+        <header>
+          Your Stats
+        </header>
+        <p class="subheader">Keep track of your profit, amount sold, and more.</p>
+
+        <div class="info">
+
+          <div class="group">
+            <span class="label">Profit From Selling</span>
+            <div class="amounts profit spinner-border text-primary spinner-border-sm">
+              <span class="sub-group" id="profitsFromSelling"></span><br>
+              <span class="usd-amount" id="profitsFromSellingUSD"></span>
+            </div>
+          </div>
+
+          <div class="group">
+            <span class="label">Royalties Received</span>
+            <div class="amounts royalty spinner-border text-primary spinner-border-sm">
+              <span class="sub-group " id="royaltiesReceived"></span><br>
+              <span class="usd-amount" id="royaltiesReceivedUSD"></span>
+            </div>
+          </div>
+
+          <div class="group">
+            <span class="label">Tips Received</span>
+            <div class="amounts tips spinner-border text-primary spinner-border-sm">
+              <span class="sub-group" id="tipsReceived"></span> <br>
+              <span class="usd-amount" id="tipsReceivedUSD"></span>
+            </div>
+          </div>
+
+          <div class="group">
+            <span class="label">Total Earned on OpenMint</span>
+            <div class="amounts total spinner-border text-primary spinner-border-sm">
+              <span class="sub-group" id="total"></span><br>
+              <span class="usd-amount" id="totalUSD"></span>
+            </div>
+          </div>
+
+          <div class="group">
+            <span class="label">Sell <span class="next-badge spinner-border text-primary spinner-border-sm" id="amountTillNextBadge"></span> more to get this badge:</span>
+            <img class="badge-img spinner-border text-primary spinner-border-sm" id="nextBadge" src="" width="20px">
+          </div>
+
+          <div class="group">
+            <span class="label">Amount Sold</span>
+            <span class="sold spinner-border text-primary spinner-border-sm" id="amountSold"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Amount Bought</span>
+            <span class="bought spinner-border text-primary spinner-border-sm" id="amountBought"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Amount Minted</span>
+            <span class="minted spinner-border text-primary spinner-border-sm" id="amountMinted"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Likes Received
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" title="Total likes received on artwork you have minted."></i>
+            </span>
+            <span class="likes spinner-border text-primary spinner-border-sm" id="likesReceived"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Encouragements
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" title="Encouragements get reset when an artwork is put for sale."></i>
+            </span>
+            <span class="encouragements spinner-border text-primary spinner-border-sm" id="currentEncouragements"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Followers</span>
+            <span class="followers spinner-border text-primary spinner-border-sm" id="amountOfFollowers"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Following</span>
+            <span class="following spinner-border text-primary spinner-border-sm" id="amountFollowing"></span>
+          </div>
+
+          <div class="group">
+            <span class="label">Joined
+              <i class="far fa-calendar-alt" data-toggle="tooltip" data-placement="top" title="DD.MM.YYYY"></i>
+            </span>
+            <span class="date spinner-border text-primary spinner-border-sm" id="dateJoined"></span>
+          </div>
+
+        </div>
+      </div><!--end of stats-->
+
+    </div>
+
     <footer>
       <div class="footer-content">
         <div class="social-media-icons">
@@ -140,23 +205,22 @@
         <div class="links">
           <a href="#">Terms</a>
           <a href="#">Privacy</a>
-          <a href="learn.html">FAQs</a>
+          <a href="learn">FAQs</a>
         </div>
 
         <div class="company-name">
-          
+
           <span>© Crypto R All rights reserved</span>
         </div>
 
       </div>
     </footer>
   </body>
-  <script src="assets/js/search.js"></script>
-  <script src="assets/js/connectWallet.js"></script>
-  <script src="assets/js/abi.js"></script>
-  <script src="assets/js/nav.js"></script>
   <script src="assets/js/theme.js"></script>
+  <script src="assets/js/nav.js"></script>
   <script src="assets/js/js.cookie.js"></script>
+  <script src="assets/js/stats.js"></script>
+  <script src="assets/js/connectWallet.js"></script>
   <script src="assets/js/profile.js"></script>
 
-</html>
+  </html>

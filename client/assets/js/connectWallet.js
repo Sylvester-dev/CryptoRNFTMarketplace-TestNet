@@ -1,5 +1,5 @@
 serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
-appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA";
+appId = 'tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA';
 Moralis.start({ serverUrl, appId });
 
 $(document).ready(()=>{
@@ -128,7 +128,7 @@ function displaySellerRankInNav(){
 };
 
 $('#myProfile').click(()=>{
-  const base = '../profile.html?address=';
+  const base = 'http://localhost:8000/profile.html?address=';
   let destination = user.attributes.ethAddress.toLowerCase();
   let profile = base + destination;
   $('#myProfile').attr('href', profile);
