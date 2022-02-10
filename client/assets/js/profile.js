@@ -1258,9 +1258,6 @@ function addSellerBadge(tokenAddress, id, amountSold){
 };
 
 async function getProfileDetails(){
-    $('#ownerPhoto' + tokenAddress + id).css('display', 'none');
-    $('#ownerRank' + tokenAddress + id).css('display', 'none');
-    ifOwnerNotInDatabase(tokenAddress, id, owner);
   try{
     let userDetails = await Moralis.Cloud.run('getAllUsers');
     for (i = 0; i < userDetails.length; i++) {
