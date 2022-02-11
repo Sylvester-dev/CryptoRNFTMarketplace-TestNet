@@ -1261,7 +1261,7 @@ async function getProfileDetails(){
   try{
     let userDetails = await Moralis.Cloud.run('getUser');
     for (i = 0; i < userDetails.length; i++) {
-      if(userDetails[i].ethAddress.toLowerCase() == address.toLowerCase()){
+      if(userDetails[i].ethAddress.toLowerCase() == toAddress.toLowerCase()){
         let profilePhoto = userDetails[i].profilePhoto;
         let username = userDetails[i].username;
         let ethAddress = userDetails[i].ethAddress;
