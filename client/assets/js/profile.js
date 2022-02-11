@@ -676,9 +676,9 @@ async function dynamicFollowButton(ethAddress){
   }
 };
 
-function dismissLoadingPulseUserCard(ethAddress, profilePhoto){
+function dismissLoadingPulseUserCard(ethAddress, userProfilePhoto){
   let img = new Image;
-  img.src = profilePhoto;
+  img.src = userProfilePhoto;
   img.onload = function(){
     $('#userPhoto' + ethAddress).css('display', 'inline');
     $('#userRank' + ethAddress).css('display', 'block');
@@ -1261,7 +1261,7 @@ async function getProfileDetails(){
   try{
     let userDetails = await Moralis.Cloud.run('getUser');
     for (i = 0; i < userDetails.length; i++) {
-      if(userDetails[i].ethAddress.toLowerCase() == toAddress.toLowerCase()){
+      if(userDetails[i].ethAddress.toLowerCase() == address.toLowerCase()){
         let profilePhoto = userDetails[i].profilePhoto;
         let username = userDetails[i].username;
         let ethAddress = userDetails[i].ethAddress;
