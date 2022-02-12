@@ -1,5 +1,5 @@
-serverUrl = "https://4q2r9curxf6a.usemoralis.com:2053/server";
-appId = 'tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA';
+serverUrl = "https://czza3kyzsgux.usemoralis.com:2053/server";
+appId = 'efuRxQZyKrNuInObObFv2g9iFJrshhEF1f4vgQsc';
 Moralis.start({ serverUrl, appId });
 
 const user = Moralis.User.current();
