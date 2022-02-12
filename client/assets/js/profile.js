@@ -1,5 +1,5 @@
-appId = "tgREnAbuniiRrBV4kRdCxo1jLfisw4JmsG28ToBA"; // Application id from moralis.io
-serverUrl = 'https://4q2r9curxf6a.usemoralis.com:2053/server'; //Server url from moralis.io
+serverUrl = "https://7exgrqw1p3qr.usemoralis.com:2053/server";
+appId = '3jaJVfu7hweHBQe4DeS3CYvy81EmfF7gL16dKS0S';
 Moralis.start({ serverUrl, appId });
 
 
