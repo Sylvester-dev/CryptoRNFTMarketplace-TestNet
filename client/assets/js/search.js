@@ -4,8 +4,8 @@ Moralis.start({ serverUrl, appId });
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const ETH_USD_PRICE_URL = "/simple/price?ids=ethereum&vs_currencies=usd";
-const CryptoRTokenAddress = "0x42969B05F72F2D0119046c7cEb8ED54A6e17df74";
-const CryptoRMarketplaceAddress = "0xfB4A93e3A0cb95133C6999AfB7Ceb14f1da8D1c2";
+const CryptoRTokenAddress = "0x15D83DE0e95476bEf472775bdB4AE1449D9A48d2";
+const CryptoRMarketplaceAddress = "0xf9bFb16363423d3ab1F77EbbD8A32b8F03417007";
 let CryptoRTokenInstance;
 let CryptoRMarketplaceInstance;
 let web3;
