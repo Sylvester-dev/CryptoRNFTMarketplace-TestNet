@@ -43,3 +43,6 @@ a:hover{
 .company-name > span > a{
   color: #666;
 }
+.frequent-questions{
+  text-align: center;
+}
