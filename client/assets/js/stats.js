@@ -76,13 +76,13 @@ async function getProfits(){
   let userInfo = await Moralis.Cloud.run('getUser', params);
   let totalProfit = userInfo.totalProfit;
   if(totalProfit == undefined){
-    $('#profitsFromSelling').html(`0 BNB`);
+    $('#profitsFromSelling').html(`0 AVAX`);
     $('#profitsFromSellingUSD').html(`($0.00)`);
   } else{
     totalProfit = userInfo.totalProfit.toString();
     let profitInBnb = web3.utils.fromWei(totalProfit, 'ether');
     let priceInUsd = (profitInBnb * bnbPrice).toFixed(2);
-    $('#profitsFromSelling').html(`${profitInBnb} BNB`);
+    $('#profitsFromSelling').html(`${profitInBnb} AVAX`);
     $('#profitsFromSellingUSD').html(`($${priceInUsd})`);
   }
   $('.profit').removeClass('spinner-border spinner-border-sm text-primary')
@@ -93,13 +93,13 @@ async function getRoyaltiesReceived(){
   let userInfo = await Moralis.Cloud.run('getUser', params);
   let totalRoyalties = userInfo.totalRoyalties;
   if(totalRoyalties == undefined){
-    $('#royaltiesReceived').html(`0 BNB`);
+    $('#royaltiesReceived').html(`0 AVAX`);
     $('#royaltiesReceivedUSD').html(`($0.00)`);
   } else{
     totalRoyalties = userInfo.totalRoyalties.toString();
     let royaltiesInBnb = web3.utils.fromWei(totalRoyalties, 'ether');
     let priceInUsd = (royaltiesInBnb * bnbPrice).toFixed(2);
-    $('#royaltiesReceived').html(`${royaltiesInBnb} BNB`);
+    $('#royaltiesReceived').html(`${royaltiesInBnb} AVAX`);
     $('#royaltiesReceivedUSD').html(`($${priceInUsd})`);
   }
   $('.royalty').removeClass('spinner-border spinner-border-sm text-primary')
@@ -110,13 +110,13 @@ async function getTipsReceived(){
   let userInfo = await Moralis.Cloud.run('getUser', params);
   let totalTips = userInfo.totalTips;
   if(totalTips == undefined){
-    $('#tipsReceived').html(`0 BNB`);
+    $('#tipsReceived').html(`0 AVAX`);
     $('#tipsReceivedUSD').html(`($0.00)`);
   } else{
     totalTips = userInfo.totalTips.toString();
     let tipsInBnb = web3.utils.fromWei(totalTips, 'ether');
     let priceInUsd = (tipsInBnb * bnbPrice).toFixed(2);
-    $('#tipsReceived').html(`${tipsInBnb} BNB`);
+    $('#tipsReceived').html(`${tipsInBnb} AVAX`);
     $('#tipsReceivedUSD').html(`($${priceInUsd})`);
   }
   $('.tips').removeClass('spinner-border spinner-border-sm text-primary')
@@ -141,7 +141,7 @@ async function getTotalEarned(){
   total = total.toString();
   let totalBnb = web3.utils.fromWei(total, 'ether');
   let totalUsd = (totalBnb * bnbPrice).toFixed(2);
-  $('#total').html(`${totalBnb} BNB`);
+  $('#total').html(`${totalBnb} AVAX`);
   $('#totalUSD').html(`($${totalUsd})`);
   $('.total').removeClass('spinner-border spinner-border-sm text-primary')
 };

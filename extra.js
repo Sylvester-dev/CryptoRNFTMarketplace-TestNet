@@ -390,15 +390,15 @@ Moralis.Cloud.define("getUser", async (request) => {
       await queryResults.save(null, {useMasterKey: true});
     }
     return {
-      'username': queryResults[i].get('username'),
-      'ethAddress': queryResults[i].get('ethAddress'),
-      'profilePhoto': queryResults[i].get('profilePhoto'),
-      'amountOfFollowers': queryResults[i].get('followers').length,
-      'amountSold': queryResults[i].get('amountSold'),
-      'amountBought': queryResults[i].get('amountBought'),
-      'totalTips': queryResults[i].get('totalTips'),
-      'totalProfit': queryResults[i].get('totalProfit'),
-      'totalRoyalties': queryResults[i].get('totalRoyalties')
+      'username': queryResults.get('username'),
+      'ethAddress': queryResults.get('ethAddress'),
+      'profilePhoto': queryResults.get('profilePhoto'),
+      'amountOfFollowers': queryResults.get('followers').length,
+      'amountSold': queryResults.get('amountSold'),
+      'amountBought': queryResults.get('amountBought'),
+      'totalTips': queryResults.get('totalTips'),
+      'totalProfit': queryResults.get('totalProfit'),
+      'totalRoyalties': queryResults.get('totalRoyalties')
     }
   }
 });

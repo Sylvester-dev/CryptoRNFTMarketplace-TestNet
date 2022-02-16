@@ -280,8 +280,8 @@ async function activeQuery(cleanedQuery){
         $('#name' + tokenAddress + id).html(name);
 
         let priceInEth = web3.utils.fromWei(price, 'ether');
-        $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${priceInEth} ETH</span>`);
-        $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
+        $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${priceInEth} AVAX</span>`);
+        $('#button' + tokenAddress + id).html(`<a href="./token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
       }
       darkmodeForDynamicContent();
     }
@@ -671,12 +671,12 @@ function onModalClose(tokenAddress, id){
 
     $('#changePriceInput' + tokenAddress + id).val('');
     $('#changePriceBtn' + tokenAddress + id).prop('disabled', true);
-    $('#changePriceSaleProfit' + tokenAddress + id).html('0 ETH');
+    $('#changePriceSaleProfit' + tokenAddress + id).html('0 AVAX');
     $('#changePriceUSDProfit' + tokenAddress + id).html('$0.00');
 
     $('#salePriceInput' + tokenAddress + id).val('');
     $('#putOnSaleBtn' + tokenAddress + id).prop('disabled', true);
-    $('#saleProfit' + tokenAddress + id).html('0 ETH');
+    $('#saleProfit' + tokenAddress + id).html('0 AVAX');
     $('#usdProfit' + tokenAddress + id).html('$0.00');
 
     $('#toAddressInput' + tokenAddress + id).val('');
@@ -754,7 +754,7 @@ function putOnSale(tokenAddress, id, royalty, creator){
       $('#notForSale' + tokenAddress + id).css('display', 'none');
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
-      $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
+      $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} AVAX</span>`);
       $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
@@ -787,12 +787,12 @@ function putForSaleInput(tokenAddress, id, royalty, creator){
 
     if(creator == user.attributes.ethAddress){
       let profit = price - (price * .02);
-      $('#saleProfit' + tokenAddress + id).html(`${profit} ETH`);
+      $('#saleProfit' + tokenAddress + id).html(`${profit} AVAX`);
       let usdProfit = (profit * ethPrice).toFixed(2);
       $('#usdProfit' + tokenAddress + id).html(`$${usdProfit}`);
     } else{
       let profit = price - (price * .02) - (price * (royalty/100));
-      $('#saleProfit' + tokenAddress + id).html(`${profit} ETH`);
+      $('#saleProfit' + tokenAddress + id).html(`${profit} AVAX`);
       let usdProfit = (profit * ethPrice).toFixed(2);
       $('#usdProfit' + tokenAddress + id).html(`$${usdProfit}`);
     }
@@ -862,7 +862,7 @@ function changePriceFrontEnd(tokenAddress, id, royalty, creator){
       $('#notForSale' + tokenAddress + id).css('display', 'none');
 
       $('#forSale' + tokenAddress + id).css('display', 'block');
-      $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} ETH</span>`);
+      $('#forSale' + tokenAddress + id).html(`<span class="for-sale-text">${price} AVAX</span>`);
       $('#button' + tokenAddress + id).html(`<a href="http://localhost:8000/token.html?token=`+tokenAddress+id+`"><button class="btn btn-primary buy-btn">Buy</button></a>`);
 
       $('#quickActions' + tokenAddress + id).html(` <a class="dropdown-item quick-action" id="changePriceQuickAction`+tokenAddress+id+`" data-toggle="modal" data-target="#changePriceModal`+tokenAddress+id+`">Change price</a>
@@ -895,12 +895,12 @@ function changePriceInput(tokenAddress, id, royalty, creator){
 
     if(creator == user.attributes.ethAddress){
       let profit = price - (price * .02);
-      $('#changePriceSaleProfit' + tokenAddress + id).html(`${profit} ETH`);
+      $('#changePriceSaleProfit' + tokenAddress + id).html(`${profit} AVAX`);
       let usdProfit = (profit * ethPrice).toFixed(2);
       $('#changePriceUSDProfit' + tokenAddress + id).html(`$${usdProfit}`);
     } else{
       let profit = price - (price * .02) - (price * (royalty/100));
-      $('#changePriceSaleProfit' + tokenAddress + id).html(`${profit} ETH`);
+      $('#changePriceSaleProfit' + tokenAddress + id).html(`${profit} AVAX`);
       let usdProfit = (profit * ethPrice).toFixed(2);
       $('#changePriceUSDProfit' + tokenAddress + id).html(`$${usdProfit}`);
     }
@@ -1058,13 +1058,13 @@ function changePriceModalHTML(tokenAddress, id){
                       <form>
                         <div id="changePriceInputGroup`+tokenAddress+id+`" class="price-input-group">
                           <div class="input-group">
-                            <input id="changePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in ETH" aria-label="ether amount">
+                            <input id="changePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in AVAX" aria-label="ether amount">
                           </div>
 
                           <div class="price-calculator price-info">
                             <span>Service Fee Upon Sale <span>2%</span></span><br>
                             <span id="ifOwnerNotCreator`+tokenAddress+id+`">Creator's Royalty <span id="royalty`+tokenAddress+id+`"></span><br></span>
-                            <span>Your profit will be: <span id="changePriceSaleProfit`+tokenAddress+id+`" class="sale-profit">0 ETH</span> <span id="changePriceUSDProfit`+tokenAddress+id+`">$0.00</span></span>
+                            <span>Your profit will be: <span id="changePriceSaleProfit`+tokenAddress+id+`" class="sale-profit">0 AVAX</span> <span id="changePriceUSDProfit`+tokenAddress+id+`">$0.00</span></span>
                           </div>
                         </div>
                       </form>
@@ -1096,13 +1096,13 @@ let putForSaleModal =`<div class="modal fade" id="putForSaleModal`+tokenAddress+
                               <form>
                                 <div id="priceInputGroup`+tokenAddress+id+`" class="price-input-group">
                                   <div class="input-group">
-                                    <input id="salePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in ETH" aria-label="ether amount">
+                                    <input id="salePriceInput`+tokenAddress+id+`" type="text" class="form-control input-styling" placeholder="Enter price in AVAX" aria-label="ether amount">
                                   </div>
 
                                   <div class="price-calculator price-info">
                                     <span>Service Fee Upon Sale <span>2%</span></span><br>
                                     <span id="ifOwnerNotCreator`+tokenAddress+id+`">Creator's Royalty <span id="royalty`+tokenAddress+id+`"></span><br></span>
-                                    <span>Your profit will be: <span id="saleProfit`+tokenAddress+id+`" class="sale-profit">0 ETH</span> <span id="usdProfit`+tokenAddress+id+`">$0.00</span></span>
+                                    <span>Your profit will be: <span id="saleProfit`+tokenAddress+id+`" class="sale-profit">0 AVAX</span> <span id="usdProfit`+tokenAddress+id+`">$0.00</span></span>
                                   </div>
                                 </div>
                               </form>
